@@ -41,26 +41,35 @@ Example (`config/sys.config`):
 ```
 Each entry creates a separate worker([`inet_free_port`](https://hexdocs.pm/inet_free_port/inet_free_port.html)) under the supervisor([`inet_free_port_sup`](https://hexdocs.pm/inet_free_port/inet_free_port_sup.html)).
 
-
-
-## Basic usage
 **Start application**
 ```erlang
 application:start(inet_free_port).
 ```
+
+
+## Basic usage
+**Start worker not under supervision**
+```erlang
+StartPort = 1000,
+EndPort = 2000,
+{ok, _Pid} = inet_free_port:start_link(free_port_server1, [
+    {tcp, {StartPort, EndPort}},
+    {udp, {StartPort, EndPort}}
+]).
+```
 **Get a free TCP port**
 ```erlang
-inet_free_port:get_port(free_port_server1, tcp).
+{ok, TcpPort} = inet_free_port:get_port(free_port_server1, tcp).
 ```
 **Get a free UDP port**
 ```erlang
-inet_free_port:get_port(free_port_server1, udp).
+{ok, UdpPort} = inet_free_port:get_port(free_port_server1, udp).
 ```
 **Default (TCP)**
 ```erlang
-inet_free_port:get_port(free_port_server1).
+{ok, TcpPort} = inet_free_port:get_port(free_port_server1).
 ```
 **With timeout**
 ```erlang
-inet_free_port:get_port(free_port_server1, tcp, 2000).
+{ok, TcpPort} = inet_free_port:get_port(free_port_server1, tcp, 2000).
 ```
