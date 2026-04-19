@@ -21,12 +21,19 @@ in
 + Find free TCP and UDP ports
 + Configurable port ranges per worker
 + OTP-compliant (application, supervisor, gen_server)
-+ Supports multiple independent port pools
++ Supports multiple independent port
 + Sequential port allocation
 + Lightweight and dependency-free
 
-## Configuration
-The library uses application environment variables to define port pools.
+
+## Basic usage
+**Start application**
+```erlang
+application:start(inet_free_port).
+```
+At startup, create workers under the supervisor from `config/sys.config`
+
+The library uses application environment variables to define port.
 
 Example (`config/sys.config`):
 ```erlang
@@ -41,14 +48,8 @@ Example (`config/sys.config`):
 ```
 Each entry creates a separate worker([`inet_free_port`](https://hexdocs.pm/inet_free_port/inet_free_port.html)) under the supervisor([`inet_free_port_sup`](https://hexdocs.pm/inet_free_port/inet_free_port_sup.html)).
 
-**Start application**
-```erlang
-application:start(inet_free_port).
-```
-
-
-## Basic usage
-**Start worker not under supervision**
+---
+**Start worker**
 ```erlang
 StartPort = 1000,
 EndPort = 2000,
@@ -57,6 +58,8 @@ EndPort = 2000,
     {udp, {StartPort, EndPort}}
 ]).
 ```
+---
+
 **Get a free TCP port**
 ```erlang
 {ok, TcpPort} = inet_free_port:get_port(free_port_server1, tcp).
