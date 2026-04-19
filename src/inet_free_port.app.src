@@ -1,0 +1,14 @@
+{application, inet_free_port, [
+    {description, "Erlang library for finding free TCP/UDP ports within a specified range"},
+    {vsn, git},
+    {registered, []},
+    {mod, {inet_free_port, []}},
+    {applications, [
+        kernel,
+        stdlib
+    ]},
+    {env, []},
+    {modules, []},
+    {licenses, ["MIT"]},
+    {links, [{"GitHub", "https://github.com/krot3232/inet_free_port"}]}
+]}.
