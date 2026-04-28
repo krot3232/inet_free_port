@@ -11,8 +11,8 @@ start_link() ->
 init([]) ->
     SupFlags = #{
         strategy => one_for_one,
-        intensity => 1000,
-        period => 10
+        intensity => 5,
+        period => 1
     },
     Env = application:get_all_env(inet_free_port),
     ChildSpecs = [
